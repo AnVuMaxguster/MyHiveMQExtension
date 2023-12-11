@@ -37,19 +37,19 @@ import com.hivemq.extension.sdk.api.services.intializer.ClientInitializer;
 public class Authentication implements ExtensionMain {
     @Override
     public void extensionStart(@NotNull ExtensionStartInput extensionStartInput, @NotNull ExtensionStartOutput extensionStartOutput) {
-//        ModifyingPublishInboundInterceptor modifyingPublishInboundInterceptor = new ModifyingPublishInboundInterceptor();
-//        final ClientInitializer clientInitializer = new ClientInitializer() {
-//            @Override
-//            public void initialize(
-//                    final @NotNull InitializerInput initializerInput,
-//                    final @NotNull ClientContext clientContext) {
-//                // add the interceptor to the context of the connecting client
-//                clientContext.addPublishInboundInterceptor(modifyingPublishInboundInterceptor);
-//            }
-//        };
-//
-//        //register the client initializer
-//        Services.initializerRegistry().setClientInitializer(clientInitializer);
+        ModifyingPublishInboundInterceptor modifyingPublishInboundInterceptor = new ModifyingPublishInboundInterceptor();
+        final ClientInitializer clientInitializer = new ClientInitializer() {
+            @Override
+            public void initialize(
+                    final @NotNull InitializerInput initializerInput,
+                    final @NotNull ClientContext clientContext) {
+                // add the interceptor to the context of the connecting client
+                clientContext.addPublishInboundInterceptor(modifyingPublishInboundInterceptor);
+            }
+        };
+
+        //register the client initializer
+        Services.initializerRegistry().setClientInitializer(clientInitializer);
         Services.securityRegistry().setAuthenticatorProvider(new MyAuthenticatorProvider());
     }
 
